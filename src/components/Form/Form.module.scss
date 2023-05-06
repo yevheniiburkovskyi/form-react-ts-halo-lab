@@ -1,0 +1,18 @@
+@import "../../style/theme/variables";
+.form {
+  position: absolute;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  row-gap: 10px;
+  padding: 15px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  background-color: $darkBlueColor;
+  color: $whiteColor;
+  border-radius: $formBorderRadius;
+  box-shadow: $cardShadow;
+  font-size: $fontSize;
+}

@@ -1,0 +1,10 @@
+@import "../../style/theme/mixins";
+@import "../../style/theme/variables";
+.field {
+  &__input {
+    @include inputStyles;
+  }
+  &__error {
+    border: 3px solid $redColor;
+  }
+}

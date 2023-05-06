@@ -1,0 +1,14 @@
+@import "../../style/theme/variables";
+
+.button {
+  background-color: $whiteColor;
+  border-radius: $inputBorderRadius;
+  padding: $inputPadding;
+  transition: all $transitionTime;
+  font-style: $fontSize;
+  font-weight: 700;
+  cursor: pointer;
+  &:hover {
+    background-color: $lightBlueColor;
+  }
+}

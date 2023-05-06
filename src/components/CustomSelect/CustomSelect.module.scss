@@ -1,0 +1,8 @@
+@import "../../style/theme/variables";
+@import "../../style/theme/mixins";
+
+.select {
+  cursor: pointer;
+  @include inputStyles;
+  text-align: center;
+}
