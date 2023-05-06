@@ -11,7 +11,16 @@ interface IProps {
 }
 
 export const initialContextValue: IFormContext = {
-  formContextValues: { name: '', birthday: '', sex: '', city: '', specialty: '', doctor: '' },
+  formContextValues: {
+    name: '',
+    birthday: '',
+    sex: '',
+    city: '',
+    specialty: '',
+    doctor: '',
+    email: '',
+    phone: '',
+  },
   setFormContextValues: () => {},
 };
 

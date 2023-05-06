@@ -31,12 +31,14 @@ const Form = () => {
     watch,
     reset,
     formState: { errors },
+    setValue,
   } = useForm<IRegister>({
     defaultValues: { ...initialContextValue.formContextValues },
     resolver: yupResolver(schema),
   });
 
   function onSubmit(data: IRegister) {
+    console.log(data);
     setIsFormSubmited(true);
   }
 
@@ -46,7 +48,7 @@ const Form = () => {
       reset({ ...initialContextValue.formContextValues });
       setFormContextValues({ ...initialContextValue.formContextValues });
     };
-  }, [isFormSubmited]);
+  }, [isFormSubmited, reset, setFormContextValues]);
 
   function handleChange() {
     const currentFormValues = watch();
@@ -65,13 +67,19 @@ const Form = () => {
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-      <CustomInput title="Name" name="name" type="text" register={register} error={errors.name} />
+      <CustomInput
+        title="Name"
+        name="name"
+        register={register}
+        error={errors.name}
+        setValue={setValue}
+      />
       <CustomInput
         title="Birthday Date"
         name="birthday"
-        type="date"
         register={register}
         error={errors.birthday}
+        setValue={setValue}
       />
       <CustomSelect
         title="Sex"
@@ -110,16 +118,16 @@ const Form = () => {
       <CustomInput
         title="Email"
         name="email"
-        type="email"
         register={register}
         error={errors.email}
+        setValue={setValue}
       />
       <CustomInput
         title="Mobile number"
         name="phone"
-        type="phone"
         register={register}
         error={errors.phone}
+        setValue={setValue}
       />
       <CustomButton title="Submit" />
     </form>

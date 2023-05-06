@@ -8,7 +8,7 @@ import useFilterOptions from '../../hooks/useFilterOptions';
 
 import { selectApi } from '../../utils/selectApi';
 import { genderArr } from '../../utils/gender';
-import { schema } from '../../utils/formValidationShecma';
+import { schema } from '../../utils/formValidationShema';
 import findDoctorByName from '../../utils/findDoctorByName';
 
 export {

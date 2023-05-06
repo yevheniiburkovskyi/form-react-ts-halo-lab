@@ -1,4 +1,4 @@
-import React, { LegacyRef } from 'react';
+import React from 'react';
 import { FieldError, UseFormRegister } from 'react-hook-form';
 
 import FormFieldWrapper from '../../components/FormFieldWrapper/FormFieldWrapper';
