@@ -4,7 +4,7 @@ This is a test task for Halo Lab. Form with validation and filtering of doctors 
 
 ## Deploy
 
-form-react-ts-halo-lab.netlify.app
+https://form-react-ts-halo-lab.netlify.app/
 
 ## Install instructions
 
