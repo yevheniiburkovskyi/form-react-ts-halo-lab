@@ -22,6 +22,15 @@ a:active {
 body {
   font-family: Arial, sans-serif;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: rgb(147, 145, 191);
+  background: linear-gradient(300deg, rgba(147, 145, 191, 1) 0%, rgba(234, 236, 241, 1) 46%, rgba(0, 212, 255, 1) 100%);
+}
 @import "/node_modules/normalize.css";
 @import "./style/theme/variables";
 @import "./style/theme/mixins";

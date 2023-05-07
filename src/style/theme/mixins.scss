@@ -10,3 +10,10 @@
     border: 3px solid $lightBlueColor;
   }
 }
+
+@mixin errorMixin {
+  border: 3px solid $redColor;
+  &:focus {
+    border: 3px solid $redColor;
+  }
+}

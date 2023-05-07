@@ -9,8 +9,9 @@ import useFilterOptions from '../../hooks/useFilterOptions';
 
 import { selectApi } from '../../utils/selectApi';
 import { genderArr } from '../../utils/gender';
-import { schema } from '../../utils/formValidationShema';
+import { schema } from '../../utils/validation-utils/validationSchema';
 import findDoctorByName from '../../utils/findDoctorByName';
+import { formInitialValues } from '../../utils/formInitialValues';
 
 export {
   CustomInput,
@@ -24,4 +25,5 @@ export {
   genderArr,
   schema,
   findDoctorByName,
+  formInitialValues,
 };

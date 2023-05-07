@@ -5,6 +5,6 @@
     @include inputStyles;
   }
   &__error {
-    border: 3px solid $redColor;
+    @include errorMixin;
   }
 }

@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import FormContext, { initialContextValue } from './FormContext/FormContext';
 import { IDoctorDataArrays, IRegister } from '../../types/types';
 
 import {
@@ -17,15 +16,17 @@ import {
   useFilterOptions,
   findDoctorByName,
   CustomButton,
+  formInitialValues,
 } from '.';
 
 import classes from './Form.module.scss';
 
 const Form = () => {
   const { data, loading, error } = useFetchAll<IDoctorDataArrays>(selectApi);
-  const { formContextValues, setFormContextValues } = useContext(FormContext);
-  const { options, doctors } = useFilterOptions(data, formContextValues);
+  const [formValues, setFormValues] = useState(formInitialValues);
+  const { options, doctors } = useFilterOptions(data, formValues);
   const [isFormSubmited, setIsFormSubmited] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -34,7 +35,7 @@ const Form = () => {
     formState: { errors },
     setValue,
   } = useForm<IRegister>({
-    defaultValues: { ...initialContextValue.formContextValues },
+    defaultValues: { ...formInitialValues },
     resolver: yupResolver(schema),
   });
 
@@ -46,10 +47,10 @@ const Form = () => {
   useEffect(() => {
     return () => {
       setIsFormSubmited(false);
-      reset({ ...initialContextValue.formContextValues });
-      setFormContextValues({ ...initialContextValue.formContextValues });
+      reset({ ...formInitialValues });
+      setFormValues({ ...formInitialValues });
     };
-  }, [isFormSubmited, reset, setFormContextValues]);
+  }, [isFormSubmited, reset, setFormValues]);
 
   function handleChange() {
     const currentFormValues = watch();
@@ -63,28 +64,28 @@ const Form = () => {
         });
       }
     }
-    setFormContextValues({ ...currentFormValues });
+    setFormValues({ ...currentFormValues });
   }
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-      <CustomInput title="Name" name="name" register={register} error={errors.name} />
-      <MaskedInput
-        title="Birthday Date"
-        name="birthday"
-        register={register}
-        error={errors.birthday}
-        setValue={setValue}
-      />
-      <CustomSelect
-        title="Sex"
-        name="sex"
-        options={genderArr}
-        register={register}
-        error={errors.sex}
-      />
       {(options && (
         <>
+          <CustomInput title="Name" name="name" register={register} error={errors.name} />
+          <MaskedInput
+            title="Birthday Date"
+            name="birthday"
+            register={register}
+            error={errors.birthday}
+            setValue={setValue}
+          />
+          <CustomSelect
+            title="Sex"
+            name="sex"
+            options={genderArr}
+            register={register}
+            error={errors.sex}
+          />
           <CustomSelect
             title="City"
             name="city"
@@ -106,13 +107,18 @@ const Form = () => {
             register={register}
             error={errors.doctor}
           />
+          <CustomInput title="Email" name="email" register={register} error={errors.email} />
+          <CustomInput
+            title="Mobile number"
+            name="phone"
+            register={register}
+            error={errors.phone}
+          />
+          <CustomButton title="Submit" />
         </>
       )) ||
         (error && <div>Something wrong</div>) ||
         (loading && <Loading />)}
-      <CustomInput title="Email" name="email" register={register} error={errors.email} />
-      <CustomInput title="Mobile number" name="phone" register={register} error={errors.phone} />
-      <CustomButton title="Submit" />
     </form>
   );
 };

@@ -18,7 +18,11 @@ interface IProps {
 const CustomSelect: React.FC<IProps> = ({ title, options, name, register, error }) => {
   return (
     <FormFieldWrapper title={title} error={error}>
-      <select id={name} className={classes.select} {...register(name)}>
+      <select
+        id={name}
+        className={error ? `${classes.select__error} ${classes.select}` : classes.select}
+        {...register(name)}
+      >
         <option value="">--Select {title}--</option>
         {options.map((item) => (
           <option value={item.value} key={item.id}>

@@ -1,10 +1,5 @@
 import * as yup from 'yup';
-
-const validationPatterns = {
-  email:
-    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
-  phone: /^\+380-\d{2}-\d{3}-\d{2}-\d{2}$/,
-};
+import { validationPatterns } from './validationPatterns';
 
 const schema = yup.object().shape({
   name: yup
@@ -32,7 +27,6 @@ const schema = yup.object().shape({
         if (value) {
           return validationPatterns.email.test(value);
         }
-        return true;
       }
       return true;
     }),
@@ -43,13 +37,12 @@ const schema = yup.object().shape({
       const { email } = this.parent;
       return !!email || !!value;
     })
-    .test('invalid form format', 'Phone format should be +380-XX-XXX-XX-XX', function (value) {
+    .test('invalid form format', 'Phone format +380XXXXXXXXX', function (value) {
       const { email } = this.parent;
       if (value || email) {
         if (value) {
           return validationPatterns.phone.test(value);
         }
-        return true;
       }
       return true;
     }),

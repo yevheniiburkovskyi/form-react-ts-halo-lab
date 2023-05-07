@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 
 import { IDoctorDataArrays } from 'types/types';
-
 import { IRegister } from '../types/types';
 
 import compareDoctorsParams from '../utils/compareDoctorsParams';
@@ -17,7 +16,7 @@ function useFilterOptions(data: IDoctorDataArrays | undefined, values: IRegister
   const filteredOptions = useMemo(() => {
     if (comparedDoctors) {
       const filterCase = new Filter(comparedDoctors, values);
-      filterCase.filterByCity().filterByGender().filterBySpecialty();
+      filterCase.filterByData().filterByCity().filterByGender().filterBySpecialty();
       return filterOptions(filterCase.doctors, filterCase.cities, filterCase.specialties);
     }
   }, [comparedDoctors, values]);
