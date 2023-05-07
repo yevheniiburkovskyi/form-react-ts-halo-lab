@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { IDoctorDataArrays, IRegister } from '../../types/types';
+import { IComparedDoctorParams, IDoctorDataArrays, IRegister } from '../../types/types';
 
 import {
   CustomInput,
   MaskedInput,
   CustomSelect,
-  Loading,
   genderArr,
   schema,
-  selectApi,
-  useFetchAll,
   useFilterOptions,
   findDoctorByName,
   CustomButton,
@@ -21,11 +18,9 @@ import {
 
 import classes from './Form.module.scss';
 
-const Form = () => {
-  const { data, loading, error } = useFetchAll<IDoctorDataArrays>(selectApi);
+const Form = ({ data }: { data: IDoctorDataArrays }) => {
   const [formValues, setFormValues] = useState(formInitialValues);
   const { options, doctors } = useFilterOptions(data, formValues);
-  const [isFormSubmited, setIsFormSubmited] = useState(false);
 
   const {
     register,
@@ -39,86 +34,75 @@ const Form = () => {
     resolver: yupResolver(schema),
   });
 
-  function onSubmit(data: IRegister) {
+  const onSubmit = (data: IRegister) => {
     alert(JSON.stringify(data));
-    setIsFormSubmited(true);
-  }
+    setFormValues({ ...formInitialValues });
+    reset({ ...formInitialValues });
+  };
 
-  useEffect(() => {
-    return () => {
-      setIsFormSubmited(false);
-      reset({ ...formInitialValues });
-      setFormValues({ ...formInitialValues });
-    };
-  }, [isFormSubmited, reset, setFormValues]);
-
-  function handleChange() {
+  const handleChange = () => {
     const currentFormValues = watch();
     if (currentFormValues.doctor && doctors) {
-      const currentDoctor = findDoctorByName(currentFormValues.doctor, doctors);
-      if (currentDoctor) {
-        reset({
-          ...currentFormValues,
-          specialty: currentDoctor.specialty,
-          city: currentDoctor.city,
-        });
-      }
+      fillInputsWithDoctorParams(currentFormValues, doctors);
     }
     setFormValues({ ...currentFormValues });
-  }
+  };
+
+  const fillInputsWithDoctorParams = (
+    currentFormValues: IRegister,
+    doctors: IComparedDoctorParams[]
+  ) => {
+    const currentDoctor = findDoctorByName(currentFormValues.doctor, doctors);
+    if (currentDoctor) {
+      reset({
+        ...currentFormValues,
+        specialty: currentDoctor.specialty,
+        city: currentDoctor.city,
+      });
+    }
+  };
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-      {(options && (
-        <>
-          <CustomInput title="Name" name="name" register={register} error={errors.name} />
-          <MaskedInput
-            title="Birthday Date"
-            name="birthday"
-            register={register}
-            error={errors.birthday}
-            setValue={setValue}
-          />
-          <CustomSelect
-            title="Sex"
-            name="sex"
-            options={genderArr}
-            register={register}
-            error={errors.sex}
-          />
-          <CustomSelect
-            title="City"
-            name="city"
-            options={options.filteredCitiesOptions}
-            register={register}
-            error={errors.city}
-          />
-          <CustomSelect
-            title="Doctor Specialty"
-            name="specialty"
-            options={options.filteredSpecialtiesOptions}
-            register={register}
-            error={errors.specialty}
-          />
-          <CustomSelect
-            title="Doctor"
-            name="doctor"
-            options={options.filteredDoctorsOptions}
-            register={register}
-            error={errors.doctor}
-          />
-          <CustomInput title="Email" name="email" register={register} error={errors.email} />
-          <CustomInput
-            title="Mobile number"
-            name="phone"
-            register={register}
-            error={errors.phone}
-          />
-          <CustomButton title="Submit" />
-        </>
-      )) ||
-        (error && <div>Something wrong</div>) ||
-        (loading && <Loading />)}
+      <CustomInput title="Name" name="name" register={register} error={errors.name} />
+      <MaskedInput
+        title="Birthday Date"
+        name="birthday"
+        register={register}
+        error={errors.birthday}
+        setValue={setValue}
+      />
+      <CustomSelect
+        title="Sex"
+        name="sex"
+        options={genderArr}
+        register={register}
+        error={errors.sex}
+      />
+      <CustomSelect
+        title="City"
+        name="city"
+        options={options.filteredCitiesOptions}
+        register={register}
+        error={errors.city}
+      />
+      <CustomSelect
+        title="Doctor Specialty"
+        name="specialty"
+        options={options.filteredSpecialtiesOptions}
+        register={register}
+        error={errors.specialty}
+      />
+      <CustomSelect
+        title="Doctor"
+        name="doctor"
+        options={options.filteredDoctorsOptions}
+        register={register}
+        error={errors.doctor}
+      />
+      <CustomInput title="Email" name="email" register={register} error={errors.email} />
+      <CustomInput title="Mobile number" name="phone" register={register} error={errors.phone} />
+      <CustomButton title="Submit" />
     </form>
   );
 };

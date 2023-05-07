@@ -52,12 +52,6 @@ export interface IDoctorDataArrays {
   doctor: IDoctor[];
 }
 
-export interface IFetchAllData<ResponseType> {
-  data: ResponseType | undefined;
-  loading: boolean;
-  error: boolean;
-}
-
 export interface IRegister {
   name: string;
   birthday: string;

@@ -15,15 +15,15 @@ interface IProps {
 }
 
 const CustomInput: React.FC<IProps> = ({ title, name, register, error }) => {
+  const placeholder = name in placeholders ? placeholders[name as keyof IInputPlaceholders] : '';
+
   return (
     <FormFieldWrapper title={title} error={error}>
       <input
         type="text"
         id={name}
-        placeholder={name in placeholders ? placeholders[name as keyof IInputPlaceholders] : ''}
-        className={
-          (error && `${classes.field__input} ${classes.field__error}`) || classes.field__input
-        }
+        placeholder={placeholder}
+        className={`${classes.field__input} ${error ? classes.field__error : ''}`}
         {...register(name)}
       />
     </FormFieldWrapper>

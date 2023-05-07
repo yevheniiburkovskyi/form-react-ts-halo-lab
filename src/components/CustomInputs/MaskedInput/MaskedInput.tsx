@@ -17,11 +17,13 @@ interface IProps {
 }
 
 const MaskedInput: React.FC<IProps> = ({ title, name, register, error, setValue }) => {
+  const mask = name in masks ? masks[name as keyof IInputMasks] : '';
+  const placeholder = name in placeholders ? placeholders[name as keyof IInputPlaceholders] : '';
   return (
     <FormFieldWrapper title={title} error={error}>
       <InputMask
-        mask={name in masks ? masks[name as keyof IInputMasks] : ''}
-        placeholder={name in masks ? placeholders[name as keyof IInputPlaceholders] : ''}
+        mask={mask}
+        placeholder={placeholder}
         maskChar={null}
         type="text"
         id={name}

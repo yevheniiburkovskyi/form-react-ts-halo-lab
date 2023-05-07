@@ -1,18 +1,20 @@
-import { ICity, IDoctor, ISpecialty, IComparedDoctorParams } from '../types/types';
+import { ICity, IDoctor, ISpecialty } from '../types/types';
 
 function compareDoctorsParams(cities: ICity[], specialties: ISpecialty[], doctors: IDoctor[]) {
-  const comparedDoctorsArr: IComparedDoctorParams[] = doctors.map((doctor) => {
+  return doctors.map((doctor) => {
+    const specialty = specialties.find((specialty) => specialty.id === doctor.specialityId);
+    const city = cities.find((city) => city.id === doctor.cityId);
+
     return {
       id: doctor.id,
       name: doctor.name,
       surname: doctor.surname,
-      specialty: specialties.find((specialty) => specialty.id === doctor.specialityId)?.name || '',
-      city: cities.find((city) => city.id === doctor.cityId)?.name || '',
+      specialty: (specialty && specialty.name) || '',
+      city: (city && city.name) || '',
       isPediatrician: doctor.isPediatrician,
-      params: specialties.find((specialty) => specialty.id === doctor.specialityId)?.params,
+      params: specialty?.params,
     };
   });
-  return comparedDoctorsArr;
 }
 
 export default compareDoctorsParams;

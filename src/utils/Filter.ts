@@ -9,7 +9,7 @@ class Filter {
   values: IRegister;
 
   constructor(doctors: IComparedDoctorParams[], values: IRegister) {
-    this.doctors = doctors.slice();
+    this.doctors = [...doctors];
     this.cities = [...new Set(doctors.map((doctor) => doctor.city))];
     this.specialties = [...new Set(doctors.map((doctor) => doctor.specialty))];
     this.values = values;
@@ -33,11 +33,7 @@ class Filter {
           (doctor) =>
             doctor.isPediatrician && (!doctor.params || (doctor.params && !doctor.params.minAge))
         );
-      } else {
-        this.doctors = [];
       }
-    } else if (this.values.birthday !== '') {
-      this.doctors = [];
     }
     return this;
   }
@@ -79,9 +75,6 @@ class Filter {
   _getPatientAge(date: string) {
     const [day, mounth, year] = date.split('/');
     const currentDate = new Date();
-    if (currentDate.getFullYear() < +year) {
-      return -1;
-    }
     const birthDate = new Date(+year, parseInt(mounth, 10) - 1, parseInt(day, 10));
     const timeDiff = Math.abs(currentDate.getTime() - birthDate.getTime());
     const age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365.25));

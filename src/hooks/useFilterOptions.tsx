@@ -7,18 +7,16 @@ import compareDoctorsParams from '../utils/compareDoctorsParams';
 import Filter from '../utils/Filter';
 import filterOptions from '../utils/createOptions';
 
-function useFilterOptions(data: IDoctorDataArrays | undefined, values: IRegister) {
+function useFilterOptions(data: IDoctorDataArrays, values: IRegister) {
   const comparedDoctors = useMemo(
-    () => data && compareDoctorsParams(data.city, data.specialty, data.doctor),
+    () => compareDoctorsParams(data.city, data.specialty, data.doctor),
     [data]
   );
 
   const filteredOptions = useMemo(() => {
-    if (comparedDoctors) {
-      const filterCase = new Filter(comparedDoctors, values);
-      filterCase.filterByData().filterByCity().filterByGender().filterBySpecialty();
-      return filterOptions(filterCase.doctors, filterCase.cities, filterCase.specialties);
-    }
+    const filterCase = new Filter(comparedDoctors, values);
+    filterCase.filterByData().filterByCity().filterByGender().filterBySpecialty();
+    return filterOptions(filterCase.doctors, filterCase.cities, filterCase.specialties);
   }, [comparedDoctors, values]);
 
   return { options: filteredOptions, doctors: comparedDoctors };

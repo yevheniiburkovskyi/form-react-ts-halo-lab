@@ -5,13 +5,13 @@ const createOptions = (
   cities: string[],
   specialties: string[]
 ) => {
-  const filteredCitiesOptions = cities.map((city, i) => ({
-    id: i.toString(),
+  const filteredCitiesOptions = cities.map((city, index) => ({
+    id: String(index),
     value: city,
   }));
 
-  const filteredSpecialtiesOptions = specialties.map((specialty, i) => ({
-    id: i.toString(),
+  const filteredSpecialtiesOptions = specialties.map((specialty, index) => ({
+    id: String(index),
     value: specialty,
   }));
 

@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import getData from '../service/getData';
-import { IFetchAllData } from '../types/types';
-
 interface IApiObj {
   [key: string]: string;
+}
+
+interface IFetchAllData<ResponseType> {
+  data: ResponseType | undefined;
+  loading: boolean;
+  error: boolean;
 }
 
 function useFetchAll<ResponseTypes>(selectApi: IApiObj): IFetchAllData<ResponseTypes> {
@@ -16,24 +20,28 @@ function useFetchAll<ResponseTypes>(selectApi: IApiObj): IFetchAllData<ResponseT
   const resObj: IApiObj = useMemo(() => ({ ...selectApi }), [selectApi]);
 
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
-        const response = await Promise.all(
+        const responses = await Promise.all(
           urlArr.map((url) => getData(url).then((res) => res.json()))
         );
-        setData(
-          response.reduce((obj, resp, i) => {
+
+        const responseData = responses.reduce(
+          (obj, resp, i) => {
             obj[Object.keys(selectApi)[i]] = resp;
             return obj;
-          }, resObj)
+          },
+          { ...resObj }
         );
+
+        setData(responseData);
         setLoading(false);
       } catch {
         setLoading(false);
         setError(true);
       }
-    }
+    };
     fetchData();
   }, [resObj, selectApi, urlArr]);
 
