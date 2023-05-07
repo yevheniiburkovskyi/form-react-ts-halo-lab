@@ -1,11 +1,17 @@
 import { useMemo } from 'react';
 
-import { IDoctorDataArrays } from 'types/types';
+import { IDoctorDataArrays, ISelectOption } from 'types/types';
 import { IRegister } from '../types/types';
 
 import compareDoctorsParams from '../utils/compareDoctorsParams';
 import Filter from '../utils/Filter';
 import filterOptions from '../utils/createOptions';
+
+export interface IFilteredOptions {
+  filteredCitiesOptions: ISelectOption[];
+  filteredSpecialtiesOptions: ISelectOption[];
+  filteredDoctorsOptions: ISelectOption[];
+}
 
 function useFilterOptions(data: IDoctorDataArrays, values: IRegister) {
   const comparedDoctors = useMemo(
