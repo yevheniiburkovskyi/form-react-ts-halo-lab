@@ -1,5 +1,5 @@
-@import "../../style/theme/mixins";
-@import "../../style/theme/variables";
+@import "../../../style/theme/mixins";
+@import "../../../style/theme/variables";
 .field {
   &__input {
     @include inputStyles;

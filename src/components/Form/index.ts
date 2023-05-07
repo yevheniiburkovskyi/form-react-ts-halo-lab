@@ -1,4 +1,5 @@
-import CustomInput from '../CustomInput/CustomInput';
+import CustomInput from '../CustomInputs/CustomInput/CustomInput';
+import MaskedInput from '../CustomInputs/MaskedInput/MaskedInput';
 import CustomSelect from '../CustomSelect/CustomSelect';
 import CustomButton from '../CustomButton/CustomButton';
 import Loading from '../Loading/Loading';
@@ -13,6 +14,7 @@ import findDoctorByName from '../../utils/findDoctorByName';
 
 export {
   CustomInput,
+  MaskedInput,
   CustomSelect,
   CustomButton,
   Loading,

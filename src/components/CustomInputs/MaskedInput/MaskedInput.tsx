@@ -2,11 +2,11 @@ import React from 'react';
 import { FieldError, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 
-import FormFieldWrapper from '../../components/FormFieldWrapper/FormFieldWrapper';
-import { IInputMasks, masks } from '../../utils/masks';
+import FormFieldWrapper from '../../FormFieldWrapper/FormFieldWrapper';
+import { masks, placeholders } from '../../../utils/input-utils';
+import { IInputMasks, IInputPlaceholders, IRegister } from '../../../types/types';
 
-import classes from './CustomInput.module.scss';
-import { IRegister } from '../../types/types';
+import classes from './MaskedInput.module.scss';
 
 interface IProps {
   title: string;
@@ -16,12 +16,12 @@ interface IProps {
   setValue: UseFormSetValue<IRegister>;
 }
 
-const CustomInput: React.FC<IProps> = ({ title, name, register, error, setValue }) => {
+const MaskedInput: React.FC<IProps> = ({ title, name, register, error, setValue }) => {
   return (
     <FormFieldWrapper title={title} error={error}>
       <InputMask
-        mask={name in masks ? masks[name as keyof IInputMasks].mask : ''}
-        placeholder={name in masks ? masks[name as keyof IInputMasks].placeholder : ''}
+        mask={name in masks ? masks[name as keyof IInputMasks] : ''}
+        placeholder={name in masks ? placeholders[name as keyof IInputPlaceholders] : ''}
         maskChar={null}
         type="text"
         id={name}
@@ -35,4 +35,4 @@ const CustomInput: React.FC<IProps> = ({ title, name, register, error, setValue 
   );
 };
 
-export default CustomInput;
+export default MaskedInput;

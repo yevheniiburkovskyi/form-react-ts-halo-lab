@@ -7,6 +7,7 @@ import { IDoctorDataArrays, IRegister } from '../../types/types';
 
 import {
   CustomInput,
+  MaskedInput,
   CustomSelect,
   Loading,
   genderArr,
@@ -38,7 +39,7 @@ const Form = () => {
   });
 
   function onSubmit(data: IRegister) {
-    console.log(data);
+    alert(JSON.stringify(data));
     setIsFormSubmited(true);
   }
 
@@ -67,14 +68,8 @@ const Form = () => {
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
-      <CustomInput
-        title="Name"
-        name="name"
-        register={register}
-        error={errors.name}
-        setValue={setValue}
-      />
-      <CustomInput
+      <CustomInput title="Name" name="name" register={register} error={errors.name} />
+      <MaskedInput
         title="Birthday Date"
         name="birthday"
         register={register}
@@ -115,20 +110,8 @@ const Form = () => {
       )) ||
         (error && <div>Something wrong</div>) ||
         (loading && <Loading />)}
-      <CustomInput
-        title="Email"
-        name="email"
-        register={register}
-        error={errors.email}
-        setValue={setValue}
-      />
-      <CustomInput
-        title="Mobile number"
-        name="phone"
-        register={register}
-        error={errors.phone}
-        setValue={setValue}
-      />
+      <CustomInput title="Email" name="email" register={register} error={errors.email} />
+      <CustomInput title="Mobile number" name="phone" register={register} error={errors.phone} />
       <CustomButton title="Submit" />
     </form>
   );

@@ -68,3 +68,15 @@ export interface IRegister {
   email: string;
   phone: string;
 }
+
+export interface IInputMasks {
+  birthday: string;
+  phone: string;
+}
+
+export interface IInputPlaceholders {
+  name: string;
+  birthday: string;
+  phone: string;
+  email: string;
+}
