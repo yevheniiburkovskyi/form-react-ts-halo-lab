@@ -14,7 +14,7 @@ const FormFieldWrapper: React.FC<IProps> = ({ children, title, error }) => {
   return (
     <div className={classes.wrapper}>
       {' '}
-      <label className={classes.field__label} htmlFor={title}>
+      <label className={classes.wrapper__label} htmlFor={title}>
         {title}
       </label>
       {children}

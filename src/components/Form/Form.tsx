@@ -4,7 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { IComparedDoctorParams, IDoctorDataArrays, IRegister } from '../../types/types';
 import FormLayout from './FormLayout/FormLayout';
-
 import { schema, useFilterOptions, findDoctorByName, formInitialValues } from '.';
 
 import classes from './Form.module.scss';

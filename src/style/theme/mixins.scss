@@ -1,12 +1,11 @@
 @import "./variables";
 
 @mixin inputStyles {
-  border-radius: $inputBorderRadius;
   border: 3px solid $darkBlueColor;
   transition: border $transitionTime;
   padding: $inputPadding;
-  border-radius: $inputBorderRadius;
   width: 100%;
+  border-radius: $inputBorderRadius;
   &:focus {
     border: 3px solid $lightBlueColor;
   }
