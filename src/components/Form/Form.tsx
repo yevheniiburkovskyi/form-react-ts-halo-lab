@@ -27,7 +27,7 @@ const Form = ({ data }: { data: IDoctorDataArrays }) => {
 
   const handleChange = () => {
     const currentFormValues = watch();
-    if (currentFormValues.doctor && doctors) {
+    if (currentFormValues.doctor) {
       fillInputsWithDoctorParams(currentFormValues, doctors);
     }
     setFormValues({ ...currentFormValues });
